@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-07-23T18:20:00Z",
+  "fixtures": [
+    {
+      "fixture_id": "weighted_fit_oracle_v1",
+      "file": "fixtures/weighted_fit_oracle_v1.csv",
+      "origin_type": "synthetic",
+      "provider": "Synthetic independently calculated oracle",
+      "source_url": "not-applicable-synthetic",
+      "method_reference_url": "https://reference.wolfram.com/language/ref/LinearModelFit.html",
+      "retrieved_at": "2026-07-23T18:20:00Z",
+      "retrieval_timestamp_basis": "Fixture creation timestamp.",
+      "release_id": "weighted-fit-oracle-v1",
+      "reference_frame": "not-applicable-synthetic",
+      "capture_method": "Hand-authored known-answer dataset; expected values derived exactly and independently checked with Wolfram Language LinearModelFit and statsmodels WLS.",
+      "purpose": "Exact numerical oracle for fit_ts and detrended.",
+      "sha256": "07654cd32973c87366aec8af5ab9aa2e6cb7a4b04c70214196b6363d1d59390e",
+      "byte_count": 109,
+      "data_row_count": 4,
+      "units": {
+        "days_since_2000": "days",
+        "position_mm": "millimeters",
+        "sigma_mm": "millimeters"
+      },
+      "expected": {
+        "intercept_mm": 9.848857644991213,
+        "velocity_mm_per_year": 3.0298769771529,
+        "velocity_sigma_mm_per_year": 0.20961090407515928,
+        "chi": 0.33142393964228664,
+        "wrms_mm": 0.2651391517138293,
+        "residuals_mm": [
+          0.15114235500878736,
+          -0.8787346221441125,
+          0.06151142355008787,
+          0.0017574692442882249
+        ],
+        "exact_values": {
+          "intercept_mm": "5604/569",
+          "velocity_mm_per_year": "1724/569",
+          "velocity_variance": "25/569",
+          "chi_squared": "125/1138",
+          "wrms_squared": "40/569",
+          "residuals_mm": [
+            "86/569",
+            "-500/569",
+            "35/569",
+            "1/569"
+          ]
+        }
+      }
+    },
+    {
+      "fixture_id": "earthscope_nomt_igs14_excerpt_v1",
+      "file": "fixtures/earthscope_nomt_igs14_excerpt_v1.csv",
+      "origin_type": "external",
+      "provider": "EarthScope GAGE / Central Washington University",
+      "source_url": "https://data.earthscope.org/archive/gnss/products/position/NOMT/NOMT.cwu.igs14.csv",
+      "retrieved_at": "2026-07-17T17:24:01.878733Z",
+      "retrieval_timestamp_basis": "Timestamp recorded by the project's provider provenance file; the exact per-station download time was not recorded.",
+      "release_id": "source-release-2026-07-16",
+      "reference_frame": "IGS14",
+      "capture_method": "First five provider data rows copied without numeric changes; column names normalized to explicit units.",
+      "purpose": "Immutable real-input provenance example; not a velocity oracle.",
+      "sha256": "7ec1e47c27b1e53d018813ca1a08ae98737fdc6162bee19862d7e30bb64b62a0",
+      "byte_count": 331,
+      "data_row_count": 5,
+      "units": {
+        "date": "UTC calendar date",
+        "north_mm": "millimeters",
+        "east_mm": "millimeters",
+        "up_mm": "millimeters",
+        "north_sigma_mm": "millimeters",
+        "east_sigma_mm": "millimeters",
+        "up_sigma_mm": "millimeters"
+      }
+    }
+  ]
+}
