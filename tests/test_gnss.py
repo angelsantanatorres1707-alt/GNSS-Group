@@ -42,7 +42,9 @@ from gnss_core import (
 from gnss_map_runtime import stage_layer_update
 
 
-NOTEBOOK_PATH = Path(__file__).parent / "GNSS_Analysis_ipyleaflet.ipynb"
+REPO_ROOT = Path(__file__).resolve().parents[1]
+TESTS_DIR = Path(__file__).resolve().parent
+NOTEBOOK_PATH = REPO_ROOT / "GNSS_Analysis_ipyleaflet.ipynb"
 
 
 def test_notebook_neighbor_table_is_responsive_and_stacked():
@@ -314,8 +316,8 @@ def test_plot_sites_reconciles_live_row_selection_and_reloads_visible_map():
     assert "site_circle_submit.on_click(site_circle)" in cell_source
 
 
-VALIDATION_DIR = Path(__file__).parent / "validation"
-VALIDATION_MANIFEST_PATH = VALIDATION_DIR / "manifest.json"
+FIXTURES_DIR = TESTS_DIR / "fixtures"
+VALIDATION_MANIFEST_PATH = TESTS_DIR / "validation_manifest.json"
 REVIEWED_MANIFEST_SHA256 = "c88e1767cd9afbadc02e5b5f5be32da906394ea08803792536c74d150fb48a41"
 REQUIRED_FIXTURE_IDENTITY_FIELDS = {
     "fixture_id",
@@ -375,7 +377,7 @@ def validation_fixture(manifest, fixture_id):
 def load_weighted_fit_oracle():
     manifest = load_validation_manifest()
     fixture = validation_fixture(manifest, "weighted_fit_oracle_v1")
-    table = pd.read_csv(VALIDATION_DIR / fixture["file"])
+    table = pd.read_csv(TESTS_DIR / fixture["file"])
     return table, fixture["expected"]
 
 
@@ -591,8 +593,8 @@ def test_registered_synthetic_fixture_should_separate_method_reference_from_sour
 def test_registered_fixture_should_remain_inside_frozen_fixture_directory(fixture_id):
     manifest = load_validation_manifest()
     fixture = validation_fixture(manifest, fixture_id)
-    fixture_path = (VALIDATION_DIR / fixture["file"]).resolve()
-    frozen_directory = (VALIDATION_DIR / "fixtures").resolve()
+    fixture_path = (TESTS_DIR / fixture["file"]).resolve()
+    frozen_directory = FIXTURES_DIR.resolve()
 
     assert fixture_path.is_relative_to(frozen_directory)
 
@@ -601,7 +603,7 @@ def test_registered_fixture_should_remain_inside_frozen_fixture_directory(fixtur
 def test_registered_fixture_should_match_reviewed_digest(fixture_id):
     manifest = load_validation_manifest()
     fixture = validation_fixture(manifest, fixture_id)
-    fixture_path = VALIDATION_DIR / fixture["file"]
+    fixture_path = TESTS_DIR / fixture["file"]
 
     result = file_sha256(fixture_path)
 
@@ -612,7 +614,7 @@ def test_registered_fixture_should_match_reviewed_digest(fixture_id):
 def test_registered_fixture_should_match_reviewed_byte_count(fixture_id):
     manifest = load_validation_manifest()
     fixture = validation_fixture(manifest, fixture_id)
-    fixture_path = VALIDATION_DIR / fixture["file"]
+    fixture_path = TESTS_DIR / fixture["file"]
 
     result = fixture_path.stat().st_size
 
@@ -623,7 +625,7 @@ def test_registered_fixture_should_match_reviewed_byte_count(fixture_id):
 def test_registered_fixture_should_match_reviewed_row_count(fixture_id):
     manifest = load_validation_manifest()
     fixture = validation_fixture(manifest, fixture_id)
-    fixture_path = VALIDATION_DIR / fixture["file"]
+    fixture_path = TESTS_DIR / fixture["file"]
 
     result = len(pd.read_csv(fixture_path))
 
