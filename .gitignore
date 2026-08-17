@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+.virtual_documents/
+
+# macOS
+.DS_Store
+
+# Local caches and downloaded GNSS products
+data/
+output/
+tmp/
+ipyleaflet_packages/
+anaconda_projects/
+*.vel
+*.off
