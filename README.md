@@ -1,4 +1,4 @@
-# GNSS Group
+# MIT EAPS GNSS Analysis
 
 A Jupyter interface for exploring GNSS station positions, velocity fields, and
 position time series from the NGF (EarthScope), UNR, and JPL analysis centers,
