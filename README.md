@@ -90,9 +90,8 @@ notebook end to end.
 MIT — see [LICENSE](LICENSE).
 
 ## Data sources
-
+- NASA Jet Propulsion Laboratory (JPL): position and velocity tables
 - EarthScope / GAGE (NGF): position, velocity, and offset products
 - University of Nevada, Reno (UNR): MIDAS velocities and station positions
-- Jet Propulsion Laboratory (JPL): position and velocity tables
 
 Please cite the originating analysis center for any data used in published work.
