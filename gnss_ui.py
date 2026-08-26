@@ -72,7 +72,14 @@ GNSS_SECTION_MARGIN = "0 0 0.55rem 0"
 GNSS_PANEL_MARGIN = "0 0 0.9rem 0"
 GNSS_GRID_GAP = "0.4rem"                # real trait, unlike `gap`
 GNSS_CONTROL_H = "1.9rem"               # replaces the lambda's baked-in 40px
-GNSS_WINDOW_MAX = "72rem"               # keeps a 3-button panel off a 3440px monitor
+GNSS_WINDOW_MAX = "72rem"               # the 3-column timeseries dashboard
+# A form of two fields does not become more informative at 72rem, it just grows
+# longer boxes, so the sparse windows get their own, tighter measure.
+GNSS_FORM_MAX = "46rem"
+# Caps in ch, tied to content rather than to the container: a station code is 4
+# characters, a source is 3, and no button label here reaches 24.
+GNSS_FIELD_MAX = "30ch"
+GNSS_BUTTON_MAX = "24ch"
 
 GNSS_LABEL_W = "38%"   # identical to the map's left_label_layout
 GNSS_FIELD_W = "58%"   # 38 + 58 = 96%, leaving the slack the map already leaves
@@ -265,7 +272,19 @@ body { container-type: inline-size; }
   overflow-wrap: break-word;
   font-size: clamp(0.66rem, 0.56rem + 0.3cqi, 0.86rem); }
 .gnss-panel .jupyter-button, .gnss-panel .widget-button {
-  height: auto !important; min-height: 1.9em; line-height: 1.15; }
+  height: auto !important; min-height: 1.9em; line-height: 1.15;
+  max-width: %(button_max)s; }
+
+/* Content-tied ceilings. Without these a 38%%/58%% row inside a 1152px panel
+   hands a 4-character station code a 551px box, which is the single thing that
+   makes the wide layout look unconsidered. justify-self keeps a capped control
+   at the start of its grid cell instead of floating in the middle of it. */
+.gnss-panel input[type="text"], .gnss-panel input[type="number"],
+.gnss-panel select { max-width: %(field_max)s; }
+.gnss-panel .widget-text, .gnss-panel .widget-dropdown,
+.gnss-panel .widget-bounded-float-text, .gnss-panel .widget-bounded-int-text {
+  max-width: %(field_max)s; }
+.gnss-panel .widget-gridbox > .jupyter-button { justify-self: start; width: 100%%; }
 .gnss-btn-danger button, button.gnss-btn-danger { border: 1px solid %(danger_edge)s !important; }
 
 /* The velocity toggle is a ToggleButton, whose ButtonStyle carries no
@@ -295,6 +314,8 @@ body { container-type: inline-size; }
     "warn": GNSS_WARN,
     "ok": GNSS_OK,
     "rule_soft": GNSS_RULE_SOFT,
+    "field_max": GNSS_FIELD_MAX,
+    "button_max": GNSS_BUTTON_MAX,
 }
 
 
